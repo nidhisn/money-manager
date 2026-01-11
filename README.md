@@ -1,6 +1,6 @@
 # Money Manager
 
-A full-stack Money Manager application built using React, Tailwind CSS, Spring Boot, and MySQL.  
+A full-stack Money Manager application built using React, Tailwind CSS, Spring Boot, and PostgreSQL.  
 This project helps users manage expenses with secure authentication and a clean, responsive UI.
 
 ---
@@ -15,7 +15,7 @@ Frontend:
 Backend:
 - Spring Boot
 - JPA / Hibernate
-- MySQL
+- PostgreSQL
 
 ---
 
@@ -31,6 +31,7 @@ Backend:
 ---
 
 ## Project Structure
+
 
 
 
