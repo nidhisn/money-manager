@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -30,7 +31,7 @@ public class ProfileEntity {
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     private Boolean isActive;
