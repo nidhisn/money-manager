@@ -49,6 +49,18 @@ public class IncomeService {
     }
 
 
+    public List<IncomeDTO> getLatest5IncomesForCurrentUser() {
+        ProfileEntity profile = profileService.getCurrentProfile();
+        List<IncomeEntity> list = incomeRepository.findTop5ByProfileIdOrderByDateDesc(profile.getId());
+        return list.stream().map(this::toDTO).toList();
+    }
+
+    public BigDecimal getTotalIncomeForCurrentUser() {
+        ProfileEntity profile = profileService.getCurrentProfile();
+        BigDecimal total = incomeRepository.findTotalExpenseByProfileId(profile.getId());
+        return total != null ? total: BigDecimal.ZERO;
+    }
+
 
     //helper methods
     private IncomeEntity toEntity(IncomeDTO dto, ProfileEntity profile, CategoryEntity category){
