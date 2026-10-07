@@ -18,6 +18,25 @@ The goal is to make personal spending easier to understand. Recording a transact
 - Create or update one monthly budget for each expense category.
 - Get daily reminder and expense-summary emails from scheduled jobs.
 
+## UI/UX concept
+
+The images below show a design concept for the API. The values are illustrative sample data; the images are not connected to a running UI or API.
+
+![Money Manager overview concept](docs/images/money-manager-overview.png)
+
+<details>
+<summary>View the Transactions and Budgets screens</summary>
+
+### Transactions
+
+![Money Manager transactions concept](docs/images/money-manager-transactions.png)
+
+### Budgets
+
+![Money Manager budgets concept](docs/images/money-manager-budgets.png)
+
+</details>
+
 ## Technology
 
 - Java 21
