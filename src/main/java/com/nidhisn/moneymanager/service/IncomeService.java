@@ -23,7 +23,8 @@ public class IncomeService {
 
     public IncomeDTO addIncome(IncomeDTO dto){
         ProfileEntity profile = profileService.getCurrentProfile();
-        CategoryEntity category =  categoryRepository.findById(dto.getCategoryId()).orElseThrow(()-> new RuntimeException("Category not found"));
+        CategoryEntity category = categoryRepository.findByIdAndProfileId(dto.getCategoryId(), profile.getId())
+                .orElseThrow(() -> new RuntimeException("Category not found or not accessible"));
         IncomeEntity newIncome = toEntity(dto, profile, category);
         newIncome = incomeRepository.save(newIncome);
         return toDTO(newIncome);
@@ -57,7 +58,7 @@ public class IncomeService {
 
     public BigDecimal getTotalIncomeForCurrentUser() {
         ProfileEntity profile = profileService.getCurrentProfile();
-        BigDecimal total = incomeRepository.findTotalExpenseByProfileId(profile.getId());
+        BigDecimal total = incomeRepository.findTotalIncomeByProfileId(profile.getId());
         return total != null ? total: BigDecimal.ZERO;
     }
 

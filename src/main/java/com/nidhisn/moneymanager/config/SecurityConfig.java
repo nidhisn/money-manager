@@ -44,8 +44,9 @@ public class SecurityConfig {
                                  "/api/*/login"
                          ).permitAll()
 
-                         //protected api
-                         .requestMatchers("/api/**").authenticated()
+                         // Transaction and personal data APIs require a valid JWT.
+                         .requestMatchers("/api/**", "/expenses/**", "/income/**",
+                                 "/categories/**", "/filter/**", "/dashboard/**", "/budgets/**").authenticated()
 
                          //anything else
                          .anyRequest().permitAll()

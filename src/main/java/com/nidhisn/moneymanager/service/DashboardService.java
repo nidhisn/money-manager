@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.time.YearMonth;
 
 import static java.util.stream.Stream.concat;
 
@@ -20,6 +21,7 @@ public class DashboardService {
     private final IncomeService incomeService;
     private final ExpenseService expenseService;
     private final ProfileService profileService;
+    private final BudgetService budgetService;
 
     public Map<String, Object> getDashboardData(){
         ProfileEntity profile = profileService.getCurrentProfile();
@@ -65,6 +67,7 @@ public class DashboardService {
         returnValue.put("recent5Incomes", lastestIncome);
         returnValue.put("recent5Expenses", lastestExpense);
         returnValue.put("recentTransactions", recentTransaction);
+        returnValue.put("monthlyBudgets", budgetService.getBudgets(YearMonth.now().toString()));
         return returnValue;
     }
 
