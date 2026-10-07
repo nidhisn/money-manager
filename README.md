@@ -2,7 +2,7 @@
 
 Money Manager is a personal-finance **backend API** built with Java and Spring Boot. A signed-in user can record income and expenses, organize transactions by category, review dashboard totals, filter transactions, and set monthly spending limits for expense categories.
 
-This repository contains the backend only. It does not contain a frontend application.
+The repository exposes its functionality through REST endpoints.
 
 ## Why this project exists
 
@@ -174,7 +174,7 @@ Run from the repository root:
 
 Or run `MoneymanagerApplication` from your IDE. For a local run, leave the `prod` profile inactive. `application-prod.properties` is for deployment and expects `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, and `SPRING_DATASOURCE_PASSWORD` to be set in the process environment.
 
-Email configuration also uses environment variables: `BREVO_USERNAME`, `BREVO_PASSWORD`, `BREVO_FROM_EMAIL`, `MONEY_MANAGER_FRONTEND_URL`, and `MONEY_MANAGER_BACKEND_URL`. Provide these for the features that need them. Never commit real credentials or production secrets.
+Email configuration also uses environment variables: `BREVO_USERNAME`, `BREVO_PASSWORD`, `BREVO_FROM_EMAIL`, `MONEY_MANAGER_FRONTEND_URL`, and `MONEY_MANAGER_BACKEND_URL`. The `MONEY_MANAGER_FRONTEND_URL` value is just the destination inserted into reminder emails; this repository does not include a UI. Provide the values for email features and never commit real credentials or production secrets.
 
 When the app starts successfully, check the health endpoint:
 
@@ -318,7 +318,6 @@ src/main/java/com/nidhisn/moneymanager/
 
 ## Current scope and known limitations
 
-- This repository is backend-only; there is no frontend in this repository.
 - The budget progress view is an API response, not a visual chart or web screen.
 - Tests are not currently included in `src/test`.
 - Local configuration is for development. Before deployment, configure production credentials and a strong JWT secret outside the repository.
