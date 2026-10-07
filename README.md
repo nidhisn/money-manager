@@ -46,6 +46,31 @@ flowchart LR
 
 The client sends JSON to a controller. For protected requests it also sends `Authorization: Bearer <token>`. Spring Security validates the JWT, the service applies the current user's ownership rules, and repositories read or write data in PostgreSQL. Controllers return DTOs rather than exposing JPA entities directly.
 
+### Where request data goes
+
+This diagram follows data from the moment an API request arrives until the response is returned. A request without a valid token is stopped before it reaches a protected controller. Registration, activation, login, and health checks are public endpoints.
+
+```mermaid
+flowchart TB
+    Input[API client sends HTTP request<br/>JSON body + optional Bearer token] --> Filter[JWT request filter]
+    Filter -->|Protected route: valid token| Controller[Controller reads request]
+    Filter -->|Protected route: missing or invalid token| Rejected[401 Unauthorized]
+    Controller --> Service[Service checks input and business rules]
+    Service --> Ownership[Resolve current user<br/>check record/category ownership]
+    Ownership -->|Allowed| Repository[Repository reads or writes entities]
+    Ownership -->|Not allowed| Forbidden[Reject request]
+    Repository <--> Database[(PostgreSQL tables)]
+    Database -->|Rows/entities| Repository
+    Repository --> Service
+    Service --> Calculation[Calculate totals, budget progress,<br/>or filtered results]
+    Calculation --> DTO[Build response DTO]
+    DTO --> Controller
+    Controller --> Output[HTTP status + JSON response]
+    Output --> Client[API client]
+```
+
+For example, `POST /expenses` sends a JSON expense and category id into this flow. The service finds the signed-in profile, confirms that the category belongs to that profile, saves an `ExpenseEntity` in `tbl_expenses`, then returns an `ExpenseDTO` as JSON. `GET /budgets?month=YYYY-MM` reads that user's budgets and expenses for the month, calculates spent/remaining/utilization/status, and returns the calculated budget DTOs.
+
 ### Sign-in and request flow
 
 ```mermaid
